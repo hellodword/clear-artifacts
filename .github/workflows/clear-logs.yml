@@ -1,7 +1,9 @@
 name: clear logs
 on:
   workflow_dispatch:
-
+  schedule:
+    # Every day at 1am
+    - cron: "0 1 * * *"
 jobs:
   build:
     runs-on: ubuntu-20.04
