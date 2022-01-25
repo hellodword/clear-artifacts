@@ -1,0 +1,22 @@
+name: test
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: ramdom file
+        run: |
+          head -c 1024 </dev/urandom >file1
+          head -c 1024 </dev/urandom >file2
+      - name: upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: file1
+          path: file1
+      - name: upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: file2
+          path: file2
