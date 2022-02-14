@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "preserveConstEnums": true,
+    "moduleResolution": "node",
+    "outDir": "dist/",
+    "sourceMap": true,
+    "strict": true,
+    "types": ["node"],
+    "target": "es2020"
+  }
+}
