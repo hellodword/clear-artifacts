@@ -33,14 +33,28 @@ yargs(hideBin(process.argv))
       //     console.log('search', response.data.total_count);
       //   });
 
-      const iterator = github.paginate.iterator(github.rest.repos.listForUser, {
-        username: context.repo.owner,
-        per_page: 100,
-      });
+      const PER_PAGE = 20;
 
-      // iterate through each response
-      for await (const { data } of iterator) {
-        console.log(data.length);
+      for await (const repos of github.paginate.iterator(
+        github.rest.repos.listForUser,
+        {
+          username: context.repo.owner,
+          per_page: PER_PAGE,
+        },
+      )) {
+        console.log(repos.data.length);
+        repos.data.map(async (repo) => {
+          for await (const runs of github.paginate.iterator(
+            github.rest.actions.listWorkflowRunsForRepo,
+            {
+              owner: context.repo.owner,
+              repo: repo.name,
+              per_page: PER_PAGE,
+            },
+          )) {
+            console.log('runs', repo.owner, repo.name, runs.data.length);
+          }
+        });
       }
     },
   })
